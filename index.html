@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Blackjack Login</title>
+<style>
+body{
+    font-family:Arial;
+    text-align:center;
+    background:#0b6623;
+    color:white;
+    padding:50px;
+}
+input,button{
+    padding:10px;
+    margin:5px;
+}
+#game,#admin{
+    display:none;
+}
+</style>
+</head>
+<body>
+
+<h1>🃏 Blackjack Casino</h1>
+
+<div id="login">
+
+<input id="user" placeholder="Benutzername">
+<br>
+<input id="pass" type="password" placeholder="Passwort">
+<br>
+
+<button onclick="login()">Anmelden</button>
+<button onclick="adminLogin()">Admin</button>
+
+</div>
+
+<div id="game">
+<h2 id="welcome"></h2>
+<p>💰 Coins: <span id="coins"></span></p>
+</div>
+
+<div id="admin">
+<h2>Admin Panel</h2>
+<p>Angemeldet als Administrator</p>
+</div>
+
+<script>
+
+const accounts = [
+    {user:"spieler1",pass:"1111",coins:1000},
+    {user:"spieler2",pass:"2222",coins:1000},
+    {user:"spieler3",pass:"3333",coins:1000},
+    {user:"spieler4",pass:"4444",coins:1000},
+    {user:"spieler5",pass:"5555",coins:1000}
+];
+
+let currentUser = null;
+
+function login(){
+
+    const user = document.getElementById("user").value;
+    const pass = document.getElementById("pass").value;
+
+    const account = accounts.find(a =>
+        a.user === user && a.pass === pass
+    );
+
+    if(!account){
+        alert("Falscher Login");
+        return;
+    }
+
+    currentUser = account;
+
+    document.getElementById("login").style.display="none";
+    document.getElementById("game").style.display="block";
+
+    document.getElementById("welcome").innerText =
+        "Willkommen " + account.user;
+
+    document.getElementById("coins").innerText =
+        account.coins;
+}
+
+function adminLogin(){
+
+    const pw = prompt("Admin Passwort");
+
+    if(pw === "3120"){
+        document.getElementById("admin").style.display="block";
+    }else{
+        alert("Falsches Passwort");
+    }
+}
+
+</script>
+
+</body>
+</html>
